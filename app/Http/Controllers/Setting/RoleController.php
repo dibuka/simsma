@@ -14,11 +14,11 @@ class RoleController extends Controller
 
     public function index(Request $request)
     {
-        // $this->authorize('read role');
-        if(!Gate::allows('read role')) {
-            abort(403, 'Tidak Memilik Akses!');
-        }
-        return view('setting.role.index');
+        $this->authorize('read role');
+        // if(!Gate::allows('read role')) {
+        //     abort(403, 'Tidak Memilik Akses!');
+        // }
+        return view('konfigurasi.role');
     }
 
     public function create()

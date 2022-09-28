@@ -18,16 +18,22 @@
             </div>
         </div>
         <ul class="sidebar-menu">
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-pie-chart"></i>
-                    <span>Charts</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-                </ul>
-            </li>
+            @can('read konfigurasi')
+                <li class="treeview {{ request()->segment(1) == 'konfigurasi' ? 'active' : '' }}">
+                    <a href="#">
+                        <i class="fa fa-cogs"></i>
+                        <span>Konfigurasi</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        @can('read role')
+                            <li class="{{ request()->segment(2) == 'roles' ? 'active' : '' }}">
+                                <a href="{{ route('roles.index') }}"><i class="fa fa-circle-o"></i> Role</a>
+                            </li>
+                        @endcan
+                    </ul>
+                </li>
+            @endcan
             <li>
                 <a href="pages/calendar.html">
                     <i class="fa fa-calendar"></i> <span>Calendar</span>
