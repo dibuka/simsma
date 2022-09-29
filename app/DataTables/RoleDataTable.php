@@ -21,6 +21,7 @@ class RoleDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
+            ->addIndexColumn()
             ->addColumn('action', 'role.action');
     }
 
@@ -45,16 +46,8 @@ class RoleDataTable extends DataTable
         return $this->builder()
                     ->setTableId('role-table')
                     ->columns($this->getColumns())
-                    ->minifiedAjax()
                     ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+                    ->orderBy(1);
     }
 
     /**
@@ -65,15 +58,16 @@ class RoleDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            // Column::make('id'),
+            Column::make('DT_RowIndex')->title('No')->searchable(false)->orderable(false),
+            Column::make('name')->title('Nama Akses Pengguna'),
+            Column::make('created_at'),
+            Column::make('updated_at'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
                   ->width(60)
                   ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
         ];
     }
 
